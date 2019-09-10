@@ -487,14 +487,14 @@ if (zen_not_null($action) && $order_exists == true) {
                 <td><strong><?php echo ENTRY_EMAIL_ADDRESS; ?></strong></td>
                 <td><?php echo '<a href="mailto:' . $order->customer['email_address'] . '">' . $order->customer['email_address'] . '</a>'; ?></td>
               </tr>
-              <!-- TVA_INTRACOM BEGIN -->
+              <!-- bof UID -->
               <?php if (zen_not_null($order->billing['tva_intracom'])) { ?>
               <tr>
                 <td class="main"><strong><?php echo ENTRY_TVA_INTRACOM; ?></strong></td>
                 <td class="main"><?php echo $order->billing['tva_intracom']; ?></td>
               </tr>
               <?php } ?>
-<!-- TVA_INTRACOM END -->
+<!-- eof UID -->
               <tr>
                 <td class="noprint"><strong><?php echo ENTRY_CUSTOMER; ?></strong></td>
                 <td class="noprint"><?php echo '<a href="' . zen_href_link(FILENAME_CUSTOMERS, 'search=' . $order->customer['email_address'], 'SSL') . '">' . TEXT_CUSTOMER_LOOKUP . '</a>'; ?></td>

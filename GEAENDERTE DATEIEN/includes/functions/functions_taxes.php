@@ -60,7 +60,7 @@
 
     $tax = $db->Execute($tax_query);
 
-   // TVA_INTRACOM BEGIN
+   // bof UID
     if ($_SESSION['customer_id']) {
         $customers_id = $_SESSION['customer_id'];
                 $customer_check = $db->Execute("select * from " . TABLE_CUSTOMERS . " where customers_id = " . $customers_id);
@@ -72,7 +72,7 @@
 	    $tax_rate = 0.00;
             return $tax_rate;
     } else {
-// TVA_INTRACOM END
+// eof UID
     if ($tax->RecordCount() > 0) {
       $tax_multiplier = 1.0;
       while (!$tax->EOF) {
@@ -84,7 +84,7 @@
       return 0;
         }
     }
-// TVA_INTRACOM END
+// eof UID
   }
 
 ////

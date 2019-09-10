@@ -6,7 +6,7 @@
  * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: functions_customers.php for UID 2019-09-09 19:18:16Z webchills $
+ * @version $Id: functions_customers.php for UID 2019-09-10 16:18:16Z webchills $
  */
 
 /**
@@ -36,9 +36,9 @@ function zen_address_format($address_format_id = 1, $incoming = array(), $html =
     $address['cr'] = $html ? ($boln == '' && $eoln == "\n" ? '<br>' : $eoln . $boln) : $eoln;
 
     $address['company'] = !empty($incoming['company']) ? zen_output_string_protected($incoming['company']) : '';
-    // TVA_INTRACOM BEGIN
+    // bof UID
 		$address['tva_intracom'] = !empty($incoming['tva_intracom']) ? zen_output_string_protected($incoming['tva_intracom']) : '';
-   // TVA_INTRACOM END
+   // eof UID
     $address['firstname'] = !empty($incoming['firstname']) ? zen_output_string_protected($incoming['firstname']) : (!empty($incoming['name']) ? zen_output_string_protected($incoming['name']) : '');
     $address['lastname'] = !empty($incoming['lastname']) ? zen_output_string_protected($incoming['lastname']) : '';
     $address['street'] = !empty($incoming['street_address']) ? zen_output_string_protected($incoming['street_address']) : '';

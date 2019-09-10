@@ -59,9 +59,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
   if (ACCOUNT_DOB == 'true') $dob = zen_db_prepare_input($_POST['dob']);
   $email_address = zen_db_prepare_input($_POST['email_address']);
   $email_address_confirm = zen_db_prepare_input($_POST['email_address_confirm']);
-// TVA_INTRACOM BEGIN
+// bof UID
 if (ACCOUNT_COMPANY == 'true') $tva_intracom = zen_db_prepare_input($_POST['tva_intracom']);
-// TVA_INTRACOM END
+// eof UID
   $street_address = zen_db_prepare_input($_POST['street_address']);
   if (ACCOUNT_SUBURB == 'true') $suburb = zen_db_prepare_input($_POST['suburb']);
   $postcode = zen_db_prepare_input($_POST['postcode']);
@@ -138,7 +138,7 @@ if (ACCOUNT_COMPANY == 'true') $tva_intracom = zen_db_prepare_input($_POST['tva_
     }
   }
 
-// TVA_INTRACOM BEGIN
+// bof UID
 
 if (strlen($tva_intracom) > 0) {
 	if (strlen($company) < 1) {
@@ -169,7 +169,7 @@ if (strlen($tva_intracom) > 0) {
 	}
 }
 
-// TVA_INTRACOM END
+// eof UID
 
   if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
     $error = true;
@@ -346,10 +346,10 @@ if (strlen($tva_intracom) > 0) {
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array[] = array('fieldName'=>'entry_gender', 'value'=>$gender, 'type'=>'stringIgnoreNull');
     if (ACCOUNT_COMPANY == 'true') $sql_data_array[] = array('fieldName'=>'entry_company', 'value'=>$company, 'type'=>'stringIgnoreNull');
-// TVA_INTRACOM BEGIN
+// bof UID
 if (ACCOUNT_COMPANY == 'true') $sql_data_array[] = array('fieldName'=>'entry_tva_intracom', 'value'=>$tva_intracom, 'type'=>'stringIgnoreNull');
 
-// TVA_INTRACOM END
+// eof UID
     if (ACCOUNT_SUBURB == 'true') $sql_data_array[] = array('fieldName'=>'entry_suburb', 'value'=>$suburb, 'type'=>'stringIgnoreNull');
 
     if (ACCOUNT_STATE == 'true') {

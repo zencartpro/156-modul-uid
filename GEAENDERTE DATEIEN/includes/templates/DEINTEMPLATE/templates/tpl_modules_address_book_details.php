@@ -45,11 +45,11 @@
 <label class="inputLabel" for="company"><?php echo ENTRY_COMPANY; ?></label>
 <?php echo zen_draw_input_field('company', $entry->fields['entry_company'], zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_company', '40') . ' id="company" autocomplete="new-password" placeholder="' . ENTRY_COMPANY_TEXT . '"' . (ACCOUNT_COMPANY == 'true' && (int)ENTRY_COMPANY_MIN_LENGTH != 0 ? ' required' : '')); ?>
 <br class="clearBoth" />
-<!-- TVA_INTRACOM BEGIN //-->
+<!-- bof UID //-->
 <label class="inputLabel" for="tva_intracom"><?php echo ENTRY_TVA_INTRACOM; ?></label>
 <?php echo zen_draw_input_field('tva_intracom', $entry->fields['entry_tva_intracom'], zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_tva_intracom', '40') . ' id="tva_intracom"') . (zen_not_null(ENTRY_TVA_INTRACOM_TEXT) ? '<span class="alert">' . ENTRY_TVA_INTRACOM_TEXT . '</span>': ''); ?>
 <br class="clearBoth" />
-<!-- TVA_INTRACOM END //-->
+<!-- eof UID //-->
 <?php
   }
 ?>

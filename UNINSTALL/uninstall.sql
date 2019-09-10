@@ -1,5 +1,5 @@
 ################################################################################
-# UID Uninstall Zen-Cart 1.5.5 - 2018-05-09 - webchills
+# UID Uninstall Zen-Cart 1.5.6 - 2019-09-09 - webchills
 # NUR AUSFÜHREN WENN SIE DAS MODUL AUS DER DATENBANK ENTFERNEN WOLLEN!!!!!
 ################################################################################
 

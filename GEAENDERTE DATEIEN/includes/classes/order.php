@@ -6,7 +6,7 @@
  * @package classes
  * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for UID 2019-09-09 19:28:25Z webchills $
+ * @version $Id: order.php for UID 2019-09-10 16:11:25Z webchills $
  */
 /**
  * order class
@@ -120,7 +120,7 @@ class order extends base {
 
     $order_status = $db->Execute($order_status_query);
     
-    // TVA_INTRACOM BEGIN 
+    // bof UID 
     switch (STORE_PRODUCT_TAX_BASIS) {
       case 'Shipping':
 
@@ -157,7 +157,7 @@ class order extends base {
       }
       $tax_address = $db->Execute($tax_address_query);
     }
-// TVA_INTRACOM END
+// eof UID
 
     $this->info = array('currency' => $order->fields['currency'],
                         'currency_value' => $order->fields['currency_value'],
@@ -182,10 +182,10 @@ class order extends base {
     $this->customer = array('id' => $order->fields['customers_id'],
                             'name' => $order->fields['customers_name'],
                             'company' => $order->fields['customers_company'],
-                            //TVA_INTRACOM BEGIN
-							              'tva_intracom' => $order->fields['billing_tva_intracom'],
-							              'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $order->fields['billing_company'], $order->fields['billing_tva_intracom']),
-                             //TVA_INTRACOM END
+                            // bof UID
+                            'tva_intracom' => $billing_address->fields['entry_tva_intracom'], 
+                            'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $billing_address->fields['entry_company'], $billing_address->fields['entry_tva_intracom']),
+                             // eof UID
                             'street_address' => $order->fields['customers_street_address'],
                             'suburb' => $order->fields['customers_suburb'],
                             'city' => $order->fields['customers_city'],
@@ -213,10 +213,10 @@ class order extends base {
 
     $this->billing = array('name' => $order->fields['billing_name'],
                            'company' => $order->fields['billing_company'],
-                           //TVA_INTRACOM BEGIN
-						               'tva_intracom' => $order->fields['billing_tva_intracom'],
-						               'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $order->fields['billing_company'], $order->fields['billing_tva_intracom']),
-                            //TVA_INTRACOM END
+                           // bof UID
+			  'tva_intracom' => $order->fields['billing_tva_intracom'],
+			  'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $order->fields['billing_company'], $order->fields['billing_tva_intracom']),
+                            // eof UID
                            'street_address' => $order->fields['billing_street_address'],
                            'suburb' => $order->fields['billing_suburb'],
                            'city' => $order->fields['billing_city'],
@@ -330,7 +330,7 @@ class order extends base {
 
 
     $customer_address_query = "select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_telephone,
-                                    c.customers_email_address, ab.entry_company, ab.entry_street_address,
+                                    c.customers_email_address, ab.entry_company, ab.entry_tva_intracom, ab.entry_street_address,
                                     ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id,
                                     z.zone_name, co.countries_id, con.countries_name,
                                     co.countries_iso_code_2, co.countries_iso_code_3,
@@ -348,7 +348,7 @@ class order extends base {
     $customer_address = $db->Execute($customer_address_query);
 
 
-    $shipping_address_query = "select ab.entry_firstname, ab.entry_lastname, ab.entry_company,
+    $shipping_address_query = "select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_tva_intracom,
                                     ab.entry_street_address, ab.entry_suburb, ab.entry_postcode,
                                     ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id,
                                     c.countries_id, con.countries_name, c.countries_iso_code_2,
@@ -365,7 +365,7 @@ class order extends base {
     $shipping_address = $db->Execute($shipping_address_query);
 
 
-    $billing_address_query = "select ab.entry_firstname, ab.entry_lastname, ab.entry_company,
+    $billing_address_query = "select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_tva_intracom,
                                    ab.entry_street_address, ab.entry_suburb, ab.entry_postcode,
                                    ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id,
                                    c.countries_id, con.countries_name, c.countries_iso_code_2,
@@ -478,6 +478,10 @@ class order extends base {
 	                          'firstname' => $customer_address->fields['customers_firstname'],
                               'lastname' => $customer_address->fields['customers_lastname'],
                               'company' => $customer_address->fields['entry_company'],
+// bof UID
+                            'tva_intracom' => $billing_address->fields['entry_tva_intracom'], // ->fields !?
+                            'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $billing_address->fields['entry_company'], $billing_address->fields['entry_tva_intracom']),
+// eof UID
                               'street_address' => $customer_address->fields['entry_street_address'],
                               'suburb' => $customer_address->fields['entry_suburb'],
                               'city' => $customer_address->fields['entry_city'],
@@ -509,6 +513,10 @@ class order extends base {
       $this->billing = array('firstname' => $billing_address->fields['entry_firstname'],
                              'lastname' => $billing_address->fields['entry_lastname'],
                              'company' => $billing_address->fields['entry_company'],
+// bof UID
+                           'tva_intracom' => $billing_address->fields['entry_tva_intracom'],
+                           'tva_intracom_tax' => $this->zen_tva_geo_tax($tax_address->fields['entry_country_id'], $billing_address->fields['entry_company'], $billing_address->fields['entry_tva_intracom']),
+// eof UID
                              'street_address' => $billing_address->fields['entry_street_address'],
                              'suburb' => $billing_address->fields['entry_suburb'],
                              'city' => $billing_address->fields['entry_city'],
@@ -530,11 +538,11 @@ class order extends base {
     $index = 0;
     $products = $_SESSION['cart']->get_products();
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
-    	// TVA_INTRACOM BEGIN
+    	// bof UID
       $tva_geo_tax = $this->billing['tva_intracom_tax'];
       $tva_tax = $tva_geo_tax? zen_get_tax_rate ($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']): 0;
       $tva_tax_description = $tva_geo_tax? zen_get_tax_description($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']): 0;
-     // TVA_INTRACOM END
+     // eof UID
       if (($i/2) == floor($i/2)) {
         $rowClass="rowEven";
       } else {
@@ -750,7 +758,7 @@ class order extends base {
 
     $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
                             'customers_name' => $this->customer['firstname'] . ' ' . $this->customer['lastname'],
-                            'customers_company' => $this->customer['company'],
+                            'customers_company' => $this->customer['company'],                            
                             'customers_street_address' => $this->customer['street_address'],
                             'customers_suburb' => $this->customer['suburb'],
                             'customers_city' => $this->customer['city'],
@@ -771,6 +779,9 @@ class order extends base {
                             'delivery_address_format_id' => $this->delivery['format_id'],
                             'billing_name' => $this->billing['firstname'] . ' ' . $this->billing['lastname'],
                             'billing_company' => $this->billing['company'],
+                            // bof UID
+                            'billing_tva_intracom' => $this->billing['tva_intracom'],
+                             // eof UID
                             'billing_street_address' => $this->billing['street_address'],
                             'billing_suburb' => $this->billing['suburb'],
                             'billing_city' => $this->billing['city'],
@@ -1316,7 +1327,7 @@ class order extends base {
      $this->notify('NOTIFY_ORDER_AFTER_SEND_ORDER_EMAIL', $zf_insert_id, $email_order, $extra_info, $html_msg);
   }
 
-// TVA_INTRACOM BEGIN
+// bof UID
 function zen_get_country_geo_zone_id($country_id){
   global $db;
   $country_geo_zone_query = "select geo_zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where zone_country_id = '" . (int)$country_id . "' limit 1";
@@ -1332,5 +1343,5 @@ function zen_tva_geo_tax($tax_country_id, $billing_company, $billing_tva_intraco
   elseif(!$billing_company && !$billing_tva_intracom) return false; // no vat
   else return false;
 }
-// TVA_INTRACOM END
+// eof UID
 }

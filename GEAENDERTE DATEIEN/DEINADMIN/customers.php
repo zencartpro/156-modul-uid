@@ -115,9 +115,9 @@ if (zen_not_null($action)) {
       $entry_company = zen_db_prepare_input($_POST['entry_company']);
       
       $entry_company_error = false;
-      // TVA_INTRACOM BEGIN
+      // bof UID
       $entry_tva_intracom = zen_db_prepare_input($_POST['entry_tva_intracom']);
-      // TVA_INTRACOM END
+      // eof UID
       $entry_state = zen_db_prepare_input($_POST['entry_state']);
       if (isset($_POST['entry_zone_id'])) $entry_zone_id = zen_db_prepare_input($_POST['entry_zone_id']);
 
@@ -162,7 +162,7 @@ if (zen_not_null($action)) {
         $entry_email_address_check_error = false;
       }
       
-      // TVA_INTRACOM BEGIN
+      // bof UID
 if (ACCOUNT_COMPANY == 'true') {
 if ( (strlen($entry_company) != 0) && (strlen($entry_company) < ENTRY_COMPANY_MIN_LENGTH) ) {
 $error = true;
@@ -203,7 +203,7 @@ $entry_tva_intracom_error = 'false';
 }
 }
 }
-// TVA_INTRACOM END
+// eof UID
 
       if (strlen($entry_street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
         $error = true;
@@ -328,9 +328,9 @@ $entry_tva_intracom_error = 'false';
         if (ACCOUNT_COMPANY == 'true') {
           $sql_data_array[] = array('fieldName' => 'entry_company', 'value' => $entry_company, 'type' => 'stringIgnoreNull');
         }
-        // TVA_INTRACOM BEGIN
+        // bof UID
         if (ACCOUNT_COMPANY == 'true') $sql_data_array[] = array('fieldName'=>'entry_tva_intracom', 'value'=>$entry_tva_intracom, 'type'=>'stringIgnoreNull');
-        // TVA_INTRACOM END
+        // eof UID
         if (ACCOUNT_SUBURB == 'true') {
           $sql_data_array[] = array('fieldName' => 'entry_suburb', 'value' => $entry_suburb, 'type' => 'stringIgnoreNull');
         }
@@ -507,9 +507,9 @@ $entry_tva_intracom_error = 'false';
             var customers_firstname = document.customers.customers_firstname.value;
             var customers_lastname = document.customers.customers_lastname.value;
   <?php if (ACCOUNT_COMPANY == 'true') echo 'var entry_company = document.customers.entry_company.value;' . "\n"; ?>
-  <!-- TVA_INTRACOM BEGIN -->
+  <!-- bof UID -->
   <?php if (ACCOUNT_COMPANY == 'true') echo 'var entry_tva_intracom = document.customers.entry_tva_intracom.value;' . "\n"; ?>
-  <!-- TVA_INTRACOM END -->
+  <!-- eof UID -->
   <?php if (ACCOUNT_DOB == 'true') echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; ?>
             var customers_email_address = document.customers.customers_email_address.value;
             var entry_street_address = document.customers.entry_street_address.value;
@@ -547,7 +547,7 @@ $entry_tva_intracom_error = 'false';
                 error = 1;
             }
             
-            <!-- TVA_INTRACOM BEGIN //-->
+            <!-- bof UID //-->
 <?php if (ACCOUNT_COMPANY == 'true') { ?>
 if (entry_company != "" && entry_company.length < <?php echo ENTRY_COMPANY_MIN_LENGTH; ?>) {
 error_message = error_message + "<?php echo JS_COMPANY; ?>";
@@ -558,7 +558,7 @@ error_message = error_message + "<?php echo JS_TVA_INTRACOM; ?>";
 error = 1;
 }
 <?php } ?>
-<!-- TVA_INTRACOM END //-->
+<!-- eof UID //-->
 
             if (entry_street_address == '' || entry_street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
                 error_message = error_message + '<?php echo JS_ADDRESS; ?>';
@@ -786,7 +786,7 @@ error = 1;
                   ?>
               </div>
             </div>
-          <!-- TVA_INTRACOM BEGIN //-->
+          <!-- bof UID //-->
 <div class="form-group">
 	 <?php echo zen_draw_label(ENTRY_TVA_INTRACOM, 'tva_intracom', 'class="col-sm-3 control-label"'); ?>
 
@@ -819,7 +819,7 @@ echo zen_draw_input_field('entry_tva_intracom', $cInfo->entry_tva_intracom, zen_
 } 
 ?> </div>
 </div>
-<!-- TVA_INTRACOM END //-->
+<!-- eof UID //-->
             <?php
             // -----
             // If a plugin has additional fields to add to the form, it supplies that information here.  The

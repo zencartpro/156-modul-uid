@@ -4,7 +4,7 @@
  * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: invoice.php for UID 2019-09-09 19:49:16Z webchills $
+ * @version $Id: invoice.php for UID 2019-09-10 15:49:16Z webchills $
  */
 require('includes/application_top.php');
 
@@ -90,13 +90,13 @@ if ($order->billing['street_address'] != $order->delivery['street_address']) {
               <tr>
                 <td class="main"><?php echo '<a href="mailto:' . $order->customer['email_address'] . '">' . $order->customer['email_address'] . '</a>'; ?></td>
               </tr>
-              <!-- TVA_INTRACOM BEGIN -->
-		  <?php if (zen_not_null($order_check->fields['billing_tva_intracom'])) { ?>
+<!-- bof UID -->
+		  <?php if (zen_not_null($order->billing['tva_intracom'])) { ?>
 		  <tr>
-			<td class="main"><b><?php echo ENTRY_TVA_INTRACOM; ?></b> <?php echo $order_check->fields['billing_tva_intracom']; ?></td>
+			<td class="main"><b><?php echo ENTRY_TVA_INTRACOM; ?></b> <?php echo $order->billing['tva_intracom']; ?></td>
 		  </tr>
 		  <?php } ?>
-<!-- TVA_INTRACOM END -->
+<!-- eof UID -->
             </table>
           </td>
           <td style="border: none">
@@ -112,7 +112,7 @@ if ($order->billing['street_address'] != $order->delivery['street_address']) {
         </tr>
       </table>
       <table>
-      	<!-- TVA_INTRACOM BEGIN -->
+      	<!-- bof UID -->
   <tr>
 	<td><?php echo zen_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
   </tr>
@@ -127,7 +127,7 @@ if ($order->billing['street_address'] != $order->delivery['street_address']) {
 	  </table>
     </td>
   </tr>
-<!-- TVA_INTRACOM END -->
+<!-- eof UID -->
   <tr>
     <td><?php echo zen_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
   </tr>
