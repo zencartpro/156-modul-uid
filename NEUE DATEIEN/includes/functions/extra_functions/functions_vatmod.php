@@ -4,10 +4,10 @@
  * Verifying functions for VAT-Mod for Zen Cart
  *
  * @package functions
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: functions_vatmod.php 2018-05-08 12:11:51 webchills $
+ * @version $Id: functions_vatmod.php 2020-05-01 17:35:51 webchills $
  */
 
 
@@ -67,7 +67,7 @@ return 'false';
 
 $tva = substr($num_tva, 2);	
 // fix for Spain
-$url='http://ec.europa.eu/taxation_customs/vies/vatResponse.html?locale=EN&memberStateCode=' . $prefix . '&number=' . $tva .'&traderName=';
+$url='https://ec.europa.eu/taxation_customs/vies/vatResponse.html?locale=EN&memberStateCode=' . $prefix . '&number=' . $tva .'&traderName=';
 //$url = 'http://ec.europa.eu/taxation_customs/vies/viesquer.do?ms=' . $prefix . '&iso='.$prefix.'&vat=' . $tva;
 $ch = curl_init();
 $timeout = 5;
