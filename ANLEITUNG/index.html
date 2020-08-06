@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>UID 2.7.1 für Zen-Cart 1.5.6 deutsch</title>
+<title>UID 2.7.2 für Zen-Cart 1.5.6 deutsch</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta http-equiv="content-language" content="de">
@@ -12,7 +12,7 @@
 <body>
 <div id="wrapper">
 <div id="header">
-<h1>UID 2.7.1 für Zen Cart 1.5.6 deutsch</h1>
+<h1>UID 2.7.2 für Zen Cart 1.5.6 deutsch</h1>
 </div>
 
 <div id="slidetabsmenu" style="display: none;">
@@ -43,7 +43,11 @@
 <h3>Copyright, Changelog, Lizenz</h3>
 <p>Überarbeitung des Moduls VAT-mod for European companies (2009 by Sebastian Bergquist (Beez) &amp; Viktor Bergquist (vike))<br>
   deutsche Übersetzung, Anpassung und Anleitung für Zen Cart 1.5.6 deutsch<br>
-  (c) 2016-2019 webchills (<a href="https://www.webchills.at" target="_blank">www.webchills.at</a>) </p>
+  (c) 2016-2020 webchills (<a href="https://www.webchills.at" target="_blank">www.webchills.at</a>) </p>
+  <p>Changelog Version 2.7.2:</p>
+<ul>
+  <li>geänderte Dateien auf den Stand von 1.5.6e gebracht</li>
+</ul>
 <p>Changelog Version 2.7.1:</p>
 <ul>
   <li>Fixes aus 1.5.6d</li>
@@ -98,7 +102,7 @@
   <li>Kroatien integriert</li>
 </ul>
 <p> Portions Copyright (c) 2003 osCommerce<br>
-  Portions Copyright     (c) 2003-2019 Zen Cart</p>
+  Portions Copyright     (c) 2003-2020 Zen Cart</p>
 <p>This contribution is subject to version 3.0 of the GPL license available through the world-wide-web at the following url:<br>
   <a href="http://www.zen-cart-pro.at/license/3_0.txt">http://www.zen-cart-pro.at/license/3_0.txt</a></p>
 </div>
@@ -119,8 +123,12 @@ und ändert zahlreiche wichtige Corefiles.<br>
 <strong>Es ist kein Modul, das Sie in 2 Minuten einfach hochladen können! <br>
 Erst in einem Testshop einspielen und nicht direkt in Ihrem Liveshop!</strong><br>
 <br>
- 
-
+ <b>WICHTIG:</b><br/>
+Bevor Sie Ihren 1.5.6 Shop weiter modifizieren, stellen Sie erst sicher, dass Sie die neueste 1.5.6 Version verwenden.<br/>
+Das ist derzeit 1.5.6e<br/>
+Sollten Sie noch 1.5.6d oder 1.5.6c verwenden, aktualisieren Sie Ihren Shop zunächst auf 1.5.6e, bevor Sie dieses Modul installieren.<br/>
+Die mitgelieferten GEAENDERTEN DATEIEN dieses Moduls sind auf dem Stand von 1.5.6e 
+<br/><br/>
 Für den Einbau dieses Moduls sollten Sie über folgende Werkzeuge verfügen:<br>
   <br>
   <strong>1) Ein guter Texteditor </strong><br>
@@ -171,11 +179,10 @@ In der Zen Cart Administration auf irgendeinen Menüpunkt clicken. Sie sollten o
   Konfiguration-&gt;Mein Shop-&gt;Basis der Steuern für Artikel = Shipping<br>
   Konfiguration-&gt;Mein Shop-&gt;Basis der Steuern für Versand = Shipping<br>
   Hier ein Beispiel für eine typische Konfiguration:  <br>
-  Länder und Steuern -&gt; Steuerzonen = Deutschland -&gt; enthält als einziges Land Germany<br>
-  Länder und Steuern -&gt; Steuerzonen = EU -&gt; enthält alle EU-Länder außer Deutschland<br>
-  Länder und Steuern -&gt; Steuerzonen = Welt -&gt; enthält alle anderen Nicht-EU Länder<br>
-  Länder und Steuern -&gt; Steuerklassen = 3 verschiedene Steuerklassen: 19%, 7% und 0%<br>
-  Länder und Steuern -&gt; Steuersätze = 19% Deutschland, 7% Deutschland, 19% EU, 7% EU, 0% Welt<br>
+  Länder und Steuern -&gt; Steuerzonen = EU -&gt; enthält alle EU Staaten<br>
+  Länder und Steuern -&gt; Steuerzonen = Export -&gt;enthält alle anderen Nicht-EU Länder<br>
+  Länder und Steuern -&gt; Steuerklassen = 3 verschiedene Steuerklassen: Export, Normalsteuersatz, reduzierter Steuersatz<br>
+  Länder und Steuern -&gt; Steuersätze = 19% Normalsteuersatz, 7% reduzierter Steuersatz,  0% Export<br>
   <br>
 </p>
 </div>

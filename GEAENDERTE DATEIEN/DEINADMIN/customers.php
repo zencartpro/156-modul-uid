@@ -1,10 +1,10 @@
 <?php
 /**
  * @package admin
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: customers.php for UID 2019-09-09 21:45:51Z webchills $
+ * @version $Id: customers.php for UID 2020-08-06 08:45:51Z webchills $
  */
 require('includes/application_top.php');
 
@@ -359,11 +359,6 @@ $entry_tva_intracom_error = 'false';
       break;
     case 'pwdresetconfirm':
       if ((int)$customers_id > 0 && isset($_POST['newpassword']) && $_POST['newpassword'] != '' && isset($_POST['newpasswordConfirm']) && $_POST['newpasswordConfirm'] != '') {
-        if (zen_admin_demo()) {
-          $_GET['action'] = '';
-          $messageStack->add_session(ERROR_ADMIN_DEMO, 'caution');
-          zen_redirect(zen_href_link(FILENAME_CUSTOMERS, zen_get_all_get_params(array('cID', 'action'))));
-        }
         $password_new = zen_db_prepare_input($_POST['newpassword']);
         $password_confirmation = zen_db_prepare_input($_POST['newpasswordConfirm']);
         $error = FALSE;
@@ -412,12 +407,6 @@ $entry_tva_intracom_error = 'false';
       }
       break;
     case 'deleteconfirm':
-      // demo active test
-      if (zen_admin_demo()) {
-        $_GET['action'] = '';
-        $messageStack->add_session(ERROR_ADMIN_DEMO, 'caution');
-        zen_redirect(zen_href_link(FILENAME_CUSTOMERS, zen_get_all_get_params(array('cID', 'action')), 'NONSSL'));
-      }
       $customers_id = zen_db_prepare_input($_POST['cID']);
 
       $zco_notifier->notify('NOTIFIER_ADMIN_ZEN_CUSTOMERS_DELETE_CONFIRM', array('customers_id' => $customers_id));
