@@ -6,7 +6,7 @@
  * @package classes
  * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for UID 2020-08-06 08:11:25Z webchills $
+ * @version $Id: order.php for UID 2020-09-25 15:24:25Z webchills $
  */
 /**
  * order class
@@ -586,7 +586,7 @@ class order extends base {
                                       'products_quantity_order_max' => (float)$products[$i]['products_quantity_order_max'],
                                       'products_quantity_mixed' => (int)$products[$i]['products_quantity_mixed'],
                                       'products_mixed_discount_quantity' => (int)$products[$i]['products_mixed_discount_quantity'],
-                                      'tax' => zen_get_tax_rate($products[$i]['tax_class_id'], $taxCountryId, $taxZoneId),
+                                      
                                       );
 
 
@@ -654,43 +654,7 @@ class order extends base {
         /*********************************************
          * Calculate taxes for this product
          *********************************************/
-        /*
-		if (DISPLAY_PRICE_WITH_TAX == 'true') {
-        $shown_price = (zen_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']))
-        + zen_add_tax($this->products[$index]['onetime_charges'], $this->products[$index]['tax']);        
-        $this->info['subtotal'] += $currencies->value($shown_price)* $this->products[$index]['qty'];
-		} else {
-		$shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']))
-        + zen_add_tax($this->products[$index]['onetime_charges'], $this->products[$index]['tax']);
-        $this->info['subtotal'] += $shown_price;
-		}
-        $this->notify('NOTIFIY_ORDER_CART_SUBTOTAL_CALCULATE', array('shown_price'=>$shown_price));
-        // find product's tax rate and description
-        $products_tax = $this->products[$index]['tax'];
-        $products_tax_description = $this->products[$index]['tax_description'];
 
-        if (DISPLAY_PRICE_WITH_TAX == 'true') {
-          // calculate the amount of tax included in price (used if tax-in pricing is enabled)
-          $tax_add = $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-        } else {
-          // calculate the amount of tax for this product (assuming tax is NOT included in the price)
-  //        $tax_add = zen_round(($products_tax / 100) * $shown_price, $currencies->currencies[$this->info['currency']]['decimal_places']);
-          $tax_add = ($products_tax/100) * $shown_price;
-        }
-        $this->info['tax'] += $tax_add;
-        foreach ($taxRates as $taxDescription=>$taxRate)
-        {
-          $taxAdd = zen_calculate_tax($this->products[$index]['final_price']*$this->products[$index]['qty'], $taxRate)
-                  +  zen_calculate_tax($this->products[$index]['onetime_charges'], $taxRate);
-          if (isset($this->info['tax_groups'][$taxDescription]))
-          {
-            $this->info['tax_groups'][$taxDescription] += $taxAdd;
-          } else
-          {
-            $this->info['tax_groups'][$taxDescription] = $taxAdd;
-          }
-        }
-        */
         // TVA_INTRACOM REPLACE BEGIN
       $tva_tax = $this->customer['tva_intracom_tax'];
       if (!$tva_tax) {
@@ -700,31 +664,14 @@ class order extends base {
         $vat_tax = $this->products[$index]['tax'];
         $vat_tax_description = $this->products[$index]['tax_description'];
       }
-      if (DISPLAY_PRICE_WITH_TAX == 'true') {
-			
-	// rundungskorrektur 
-        $dest_country = isset ($shipping_address->fields['country']['iso_code_2']) ? $shipping_address->fields['country']['iso_code_2'] : 0 ;
-        $dest_zone = 0;
-        $error = false;
-        $countries_table = EU_COUNTRIES_FOR_LAST_STEP; 
-        $country_zones = explode(",", $countries_table);
-        if ((!in_array($dest_country, $country_zones))&& ($shipping_address->fields['country']['id'] != '')) {
-            $dest_zone = $i;
-            $shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $vat_tax))
-        + zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
-        $this->info['subtotal'] += $shown_price;
-        } else {
-          $shown_price = (zen_add_tax($this->products[$index]['final_price'], $vat_tax))
-        + zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);        
-        $this->info['subtotal'] += $currencies->value($shown_price)* $this->products[$index]['qty'];
-        }	
       
-		} else {
-		$shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $vat_tax))
-        + zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
-        $this->info['subtotal'] += $shown_price;
-		}
-
+      
+         
+        	
+      
+      $shown_price = (zen_add_tax($this->products[$index]['final_price'], $vat_tax) * $this->products[$index]['qty'])
++ zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
+      $this->info['subtotal'] += $shown_price;
 
       // find product's tax rate and description
       $products_tax = $vat_tax;
