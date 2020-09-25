@@ -6,7 +6,7 @@
  * @package classes
  * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for UID 2020-09-25 15:24:25Z webchills $
+ * @version $Id: order.php for UID 2020-09-25 16:19:25Z webchills $
  */
 /**
  * order class
@@ -668,28 +668,43 @@ class order extends base {
       
          
         	
-      
-      $shown_price = (zen_add_tax($this->products[$index]['final_price'], $vat_tax) * $this->products[$index]['qty'])
-+ zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
-      $this->info['subtotal'] += $shown_price;
+	
+			
+	$shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $vat_tax))
+        + zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
+        $this->info['subtotal'] += $shown_price;
+        
 
+  
+
+
+        $this->notify('NOTIFIY_ORDER_CART_SUBTOTAL_CALCULATE', array('shown_price'=>$shown_price));
       // find product's tax rate and description
       $products_tax = $vat_tax;
       $products_tax_description = $vat_tax_description;
 
-      if (DISPLAY_PRICE_WITH_TAX == 'true') {
-        // calculate the amount of tax "inc"luded in price (used if tax-in pricing is enabled)
-        $tax_add = $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-      } else {
-        // calculate the amount of tax for this product (assuming tax is NOT included in the price)
-        $tax_add = zen_round(($products_tax / 100) * $shown_price, $currencies->currencies[$this->info['currency']]['decimal_places']);
-      }
-      $this->info['tax'] += $tax_add;
-      if (isset($this->info['tax_groups'][$products_tax_description])) {
-        $this->info['tax_groups'][$products_tax_description] += $tax_add;
-      } else {
-        $this->info['tax_groups'][$products_tax_description] = $tax_add;
-      }
+        if (DISPLAY_PRICE_WITH_TAX == 'true') {
+          // calculate the amount of tax included in price (used if tax-in pricing is enabled)
+          $tax_add = $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+        } else {
+          // calculate the amount of tax for this product (assuming tax is NOT included in the price)
+  //        $tax_add = zen_round(($products_tax / 100) * $shown_price, $currencies->currencies[$this->info['currency']]['decimal_places']);
+          $tax_add = ($products_tax/100) * $shown_price;
+              }
+        $this->info['tax'] += $tax_add;
+        foreach ($taxRates as $taxDescription=>$taxRate)
+        {
+          $taxAdd = zen_calculate_tax($this->products[$index]['final_price']*$this->products[$index]['qty'], $taxRate)
+                  +  zen_calculate_tax($this->products[$index]['onetime_charges'], $taxRate);
+          if (isset($this->info['tax_groups'][$taxDescription]))
+          {
+            $this->info['tax_groups'][$taxDescription] += $taxAdd;
+          } else
+          {
+            $this->info['tax_groups'][$taxDescription] = $taxAdd;
+          }
+        }
+
 // TVA_INTRACOM REPLACE END
         /*********************************************
          * END: Calculate taxes for this product
