@@ -6,7 +6,7 @@
  * @package classes
  * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: order.php for UID 2020-09-25 16:19:25Z webchills $
+ * @version $Id: order.php for UID 2020-09-25 16:31:25Z webchills $
  */
 /**
  * order class
@@ -663,20 +663,10 @@ class order extends base {
       } else {
         $vat_tax = $this->products[$index]['tax'];
         $vat_tax_description = $this->products[$index]['tax_description'];
-      }
-      
-      
-         
-        	
-	
-			
-	$shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $vat_tax))
+      }  			
+	    $shown_price = (zen_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $vat_tax))
         + zen_add_tax($this->products[$index]['onetime_charges'], $vat_tax);
-        $this->info['subtotal'] += $shown_price;
-        
-
-  
-
+        $this->info['subtotal'] += $shown_price;  
 
         $this->notify('NOTIFIY_ORDER_CART_SUBTOTAL_CALCULATE', array('shown_price'=>$shown_price));
       // find product's tax rate and description
@@ -691,21 +681,15 @@ class order extends base {
   //        $tax_add = zen_round(($products_tax / 100) * $shown_price, $currencies->currencies[$this->info['currency']]['decimal_places']);
           $tax_add = ($products_tax/100) * $shown_price;
               }
-        $this->info['tax'] += $tax_add;
-        foreach ($taxRates as $taxDescription=>$taxRate)
-        {
-          $taxAdd = zen_calculate_tax($this->products[$index]['final_price']*$this->products[$index]['qty'], $taxRate)
-                  +  zen_calculate_tax($this->products[$index]['onetime_charges'], $taxRate);
-          if (isset($this->info['tax_groups'][$taxDescription]))
-          {
-            $this->info['tax_groups'][$taxDescription] += $taxAdd;
-          } else
-          {
-            $this->info['tax_groups'][$taxDescription] = $taxAdd;
-          }
-        }
+       $this->info['tax'] += $tax_add;
+      if (isset($this->info['tax_groups'][$products_tax_description])) {
+        $this->info['tax_groups'][$products_tax_description] += $tax_add;
+      } else {
+        $this->info['tax_groups'][$products_tax_description] = $tax_add;
+      }
 
-// TVA_INTRACOM REPLACE END
+      // TVA_INTRACOM REPLACE END 
+
         /*********************************************
          * END: Calculate taxes for this product
          *********************************************/
