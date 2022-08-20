@@ -1,15 +1,16 @@
 <?php
 /**
  * Page Template
- *
- * Loaded automatically by index.php?main_page=create_account.<br />
+ * Zen Cart German Specific
+ * Loaded automatically by index.php?main_page=create_account.
  * Displays Create Account form.
  *
- * @package templateSystem
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ 
+ * @copyright Copyright 2003-2022 Zen Cart Development Team
+ * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_create_account.php for UID 2019-09-09 20:33:58Z webchills $
+ * @version $Id: tpl_modules_create_account.php for UID 2022-08-20 08:13:58Z webchills $
  */
 ?>
 
@@ -37,11 +38,13 @@
 <legend><?php echo CATEGORY_COMPANY; ?></legend>
 <label class="inputLabel" for="company"><?php echo ENTRY_COMPANY; ?></label>
 <?php echo zen_draw_input_field('company', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_company', '40') . ' id="company" autocomplete="new-password" placeholder="' . ENTRY_COMPANY_TEXT . '"'. (ACCOUNT_COMPANY == 'true' && (int)ENTRY_COMPANY_MIN_LENGTH != 0 ? ' required' : '')); ?>
-<!-- bof UID //-->
-<br class="clearBoth" />
-<label class="inputLabel" for="tva_intracom"><?php echo ENTRY_TVA_INTRACOM; ?></label>
-<?php echo zen_draw_input_field('tva_intracom', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_tva_intracom', '40') . ' id="tva_intracom"') . (zen_not_null(ENTRY_TVA_INTRACOM_TEXT) ? '<span class="alert">' . ENTRY_TVA_INTRACOM_TEXT . '</span>': ''); ?>
-<!-- eof UID //-->
+
+<?php
+//-bof uid  *** 1 of 1 ***
+    include $template->get_template_dir('tpl_modules_vat4eu_display.php', DIR_WS_TEMPLATE, $current_page_base, 'templates'). '/tpl_modules_vat4eu_display.php'; 
+//-eof uid  *** 1 of 1 ***
+?>
+
 </fieldset>
 <?php
   }
@@ -97,7 +100,7 @@
 <label class="inputLabel" for="stateZone" id="zoneLabel"><?php echo ENTRY_STATE; ?></label>
 <?php
       echo zen_draw_pull_down_menu('zone_id', zen_prepare_country_zones_pull_down($selected_country), $zone_id, 'id="stateZone"');
-      if (zen_not_null(ENTRY_STATE_TEXT)) echo '&nbsp;<span class="alert">' . ENTRY_STATE_TEXT . '</span>'; 
+      if (zen_not_null(ENTRY_STATE_TEXT)) echo '&nbsp;<span class="alert">' . ENTRY_STATE_TEXT . '</span>';
     }
 ?>
 

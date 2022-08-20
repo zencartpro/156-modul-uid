@@ -1,14 +1,15 @@
 <?php
 /**
  * Module Template
- *
+ * Zen Cart German Specific
  * Allows entry of new addresses during checkout stages
  *
- * @package templateSystem
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ 
+ * @copyright Copyright 2003-2022 Zen Cart Development Team
+ * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_checkout_new_address.php for UID 2019-09-09 20:31:16Z webchills $
+ * @version $Id: tpl_modules_checkout_new_address.php for UID 2022-06-02 20:12:16Z webchills $
  */
 ?>
 <div class="centerColumnModule" id="checkoutNewAddress">
@@ -41,12 +42,12 @@
 <label class="inputLabel" for="company"><?php echo ENTRY_COMPANY; ?></label>
 <?php echo zen_draw_input_field('company', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_company', '40') . ' id="company" autocomplete="new-password" placeholder="' . ENTRY_COMPANY_TEXT . '"' . (ACCOUNT_COMPANY == 'true' && (int)ENTRY_COMPANY_MIN_LENGTH != 0 ? ' required' : '')); ?>
 <br class="clearBoth" />
-<!-- bof UID //-->
-<label class="inputLabel" for="tva_intracom"><?php echo ENTRY_TVA_INTRACOM; ?></label>
-<?php echo zen_draw_input_field('tva_intracom', '', zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_tva_intracom', '40') . ' id="tva_intracom"') . (zen_not_null(ENTRY_TVA_INTRACOM_TEXT) ? '<span class="alert">' . ENTRY_TVA_INTRACOM_TEXT . '</span>': ''); ?>
-<br class="clearBoth" />
-<!-- eof UID //-->
 <?php
+
+//-bof uid  *** 1 of 1 ***
+    include $template->get_template_dir('tpl_modules_vat4eu_display.php', DIR_WS_TEMPLATE, $current_page_base, 'templates'). '/tpl_modules_vat4eu_display.php'; 
+//-eof uid  *** 1 of 1 ***
+
   }
 ?>
 

@@ -1,14 +1,15 @@
 <?php
 /**
  * Module Template
- *
+ * Zen Cart German Specific
  * Displays address-book details/selection
  *
- * @package templateSystem
- * @copyright Copyright 2003-2019 Zen Cart Development Team
+ 
+ * @copyright Copyright 2003-2022 Zen Cart Development Team
+ * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_address_book_details.php for UID 2019-09-09 19:49:16Z webchills $
+ * @version $Id: tpl_modules_address_book_details.php for UID 2022-08-20 08:10:16Z webchills $
  */
 ?>
 <fieldset>
@@ -45,12 +46,12 @@
 <label class="inputLabel" for="company"><?php echo ENTRY_COMPANY; ?></label>
 <?php echo zen_draw_input_field('company', $entry->fields['entry_company'], zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_company', '40') . ' id="company" autocomplete="new-password" placeholder="' . ENTRY_COMPANY_TEXT . '"' . (ACCOUNT_COMPANY == 'true' && (int)ENTRY_COMPANY_MIN_LENGTH != 0 ? ' required' : '')); ?>
 <br class="clearBoth" />
-<!-- bof UID //-->
-<label class="inputLabel" for="tva_intracom"><?php echo ENTRY_TVA_INTRACOM; ?></label>
-<?php echo zen_draw_input_field('tva_intracom', $entry->fields['entry_tva_intracom'], zen_set_field_length(TABLE_ADDRESS_BOOK, 'entry_tva_intracom', '40') . ' id="tva_intracom"') . (zen_not_null(ENTRY_TVA_INTRACOM_TEXT) ? '<span class="alert">' . ENTRY_TVA_INTRACOM_TEXT . '</span>': ''); ?>
-<br class="clearBoth" />
-<!-- eof UID //-->
 <?php
+
+//-bof uid  *** 1 of 1 ***
+    include $template->get_template_dir('tpl_modules_vat4eu_display.php', DIR_WS_TEMPLATE, $current_page_base, 'templates'). '/tpl_modules_vat4eu_display.php'; 
+//-eof uid  *** 1 of 1 ***
+
   }
 ?>
 
@@ -103,7 +104,7 @@
 <br class="clearBoth" />
 
 <label class="inputLabel" for="country"><?php echo ENTRY_COUNTRY; ?></label>
-<?php echo zen_get_country_list('zone_country_id', $entry->fields['entry_country_id'], 'id="country" placeholder="' . ENTRY_COUNTRY_TEXT . '"' . ($flag_show_pulldown_states == true ? 'onchange="update_zone(this.form);"' : '')); ?>
+<?php echo zen_get_country_list('zone_country_id', $entry->fields['entry_country_id'], 'id="country" placeholder="' . ENTRY_COUNTRY_TEXT . '"' . ($flag_show_pulldown_states == true ? ' onchange="update_zone(this.form);"' : '')); ?>
 <br class="clearBoth" />
 
 <?php

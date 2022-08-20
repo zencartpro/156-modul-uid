@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>UID 2.7.2 für Zen-Cart 1.5.6 deutsch</title>
+<title>UID 3.0.0 für Zen-Cart 1.5.6 deutsch</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta http-equiv="content-language" content="de">
@@ -12,15 +12,16 @@
 <body>
 <div id="wrapper">
 <div id="header">
-<h1>UID 2.7.2 für Zen Cart 1.5.6 deutsch</h1>
+<h1>UID 3.0.0 für Zen Cart 1.5.6 deutsch</h1>
 </div>
 
 <div id="slidetabsmenu" style="display: none;">
 <ul>
   <li> <a onClick="expandcontent('sc1', this)" href="javascript:void(0)"><span>Sinn und Zweck</span></a></li>
-  <li> <a onClick="expandcontent('sc2', this)" href="javascript:void(0)"><span>Installation</span></a></li>
+  <li> <a onClick="expandcontent('sc2', this)" href="javascript:void(0)"><span>Neuinstallation</span></a></li>
+  <li> <a onClick="expandcontent('sc3', this)" href="javascript:void(0)"><span>Update von 2.x</span></a></li>
    <li> <a onClick="expandcontent('sc4', this)" href="javascript:void(0)"><span>Deinstallation</span></a></li>
-  <li> <a onClick="expandcontent('sc5', this)" href="javascript:void(0)"><span>Download & Support</span></a></li>
+  <li> <a onClick="expandcontent('sc5', this)" href="javascript:void(0)"><span>Download</span></a></li>
   <li> <a onClick="expandcontent('sc6', this)" href="javascript:void(0)"><span>Unterstützen</span></a></li>
  </ul>
 </div>
@@ -36,73 +37,61 @@
 
 <h2>Sinn und Zweck dieses Moduls</h2>
 
-  <p>Dieses Modul erweitert die Kundendaten mit einem Feld für die UID für Firmenkunden innerhalb der EU. <br>
-    Die UID wird bei der Registrierung und bei der Bearbeitung in der Administration online überprüft am System von <a href="http://ec.europa.eu/taxation_customs/vies/">http://ec.europa.eu/taxation_customs/vies/</a><br>
-    Firmen mit gültiger UID aus EU-Ländern außerhalb des Shoplandes werden dann im Shop keine Steuern verrechnet und ausgewiesen. <br>
+  <p>Dieses Modul erweitert die Kundendaten mit einem Feld für die UID für Firmenkunden innerhalb der EU.<br>
+    Die UID wird bei der Registrierung und bei der Bearbeitung in der Administration online überprüft am System VIES<br>
+    Firmen mit gültiger UID aus EU-Ländern außerhalb des Shoplandes werden dann im Shop bei einer Bestellung die Steuern sofort rückerstattet.
+    <br>
+    Der Status der Überprüfung ist bei jedem Kunden mit UID in der Shopadministration ersichtlich.<br>
+    <br>
+     Dieses Modul wurde gegenüber früheren Version komplett überarbeitet und verwendet als Codebasis nun das Modul Vat4Eu von lat9<br>
+    Frühere Versionen haben die Steuerausweisung im UID-Fall komplett entfernt, diese Version tastet die Preise nicht an, sondern zieht die Steuer mit entsprechenden Hinweisen in Warenkorb, Checkout und Rechnung sofort wieder ab.<br>
+    <br>
+    <strong>Ältere Versionen dieses Moduls haben eine Überprüfungsmethode verwendet, die von VIES seit August 2022 nicht mehr unterstützt wird.<br>
+    Wenn Sie in Ihrem 1.5.6 Shop also weiterhin die UID Funktionalität nutzen wollen, dann müssen Sie das Modul zwingend auf Version 3.0.0 aktualisieren, das alte Modul funktioniert NICHT mehr!
+    </strong><br>
+    <br>
+    In der Administration ist ersichtlich, ob die UID wirklich bei VIES geprüft wurde oder von einem Administrator ohne VIES Prüfung hinterlegt wurde.<br>
+    Wurde die UID nicht erfolgreich geprüft, so dass sie eine Adminbestätigung erfordert, wird dem Kunden im Shop ein entsprechender Hinweis angezeigt und solange die UID nicht bestätigt wurde, erfolgt kein Abzug der Steuer.<br>
+    <br>
+    Auf der Rechnung und auch auf der pdf Rechnung erscheinen UID des Kunden und ein Hinweis auf die innergemeinschaftliche steuerfreie Lieferung in folgendem Format:<br>
+    steuerfreie innergemeinschaftliche Lieferung | Unsere UID: ATU1234567 | Ihre UID: DE1234567    <br>
+    <br>
+    User von älteren Versionen dieses Moduls, die bereits UID Daten in den Kundendaten hinterlegt haben, können diese mit einem beiliegenden Konvertierungsscript in die neue Datenbankstruktur des Moduls übernehmen.<br>
+    <br>
+    Seit Version 3.0.0 dieses Moduls sind fast keine Änderungen in Corefiles mehr erforderlich, alles was möglich ist, wird mit Observern gelöst, so dass die Installation äußerst einfach ist.<br>
+    <br>
+    <strong>Hinweis:<br>
+    Die Überprüfung bei VIES wird via SOAP durchgeführt. Stellen Sie daher sicher, dass in Ihrer PHP Konfiguration die SOAP Extension aktiv ist.<br>
+    Bevor Sie dieses Modul installieren prüfen Sie in Ihrer Zen Cart Administration unter Tools &gt; Serverinfo ob es einen Eintrag soap gibt mit Soap Client enabled.<br>
+    Fehlt dieser Eintrag oder Soap Client ist disabled, aktvieren Sie die soap extension in Ihrer php.ini oder wenden Sie sich an Ihren Provider, falls Sie auf solche Einstellungen keinen Zugriff haben.<br>
+    Dieses Modul funktioniert nur mit Soap Client enabled!
+    </strong></p>
+  <p>Sollte eine UID Prüfung mit diesem Modul nicht möglich sein, dann ist das sehr wahrscheinlich ein kurzfristiges Problem im Mitgliedsstaat des jeweiligen Landes (Wartungsarbeiten oder ähnliches).<br>
+    Der aktuelle Status der Abfrageverfügbarkeit 
+    ist immer bei VIES hier ersichtlich:<br>
+    <a href="https://ec.europa.eu/taxation_customs/vies/#/self-monitoring" target="_blank"><strong>https://ec.europa.eu/taxation_customs/vies/#/self-monitoring</strong></a> </p>
+  <p>Wenn im Modul der Debug Modus aktiviert ist, sind solche Fehlschläge im VatValidate.log im Ordner logs zu finden.<br>
+    Ist ein Mitgliedsland nicht erreichbar ist dort MS_UNAVAILABLE ersichtlich.<br>
+    Hier kann man nur abwarten, bis das System des jeweiligen Landes wieder online ist.
+    <br>
   </p>
 <h3>Copyright, Changelog, Lizenz</h3>
-<p>Überarbeitung des Moduls VAT-mod for European companies (2009 by Sebastian Bergquist (Beez) &amp; Viktor Bergquist (vike))<br>
-  deutsche Übersetzung, Anpassung und Anleitung für Zen Cart 1.5.6 deutsch<br>
-  (c) 2016-2020 webchills (<a href="https://www.webchills.at" target="_blank">www.webchills.at</a>) </p>
-  <p>Changelog Version 2.7.2:</p>
-<ul>
-  <li>geänderte Dateien auf den Stand von 1.5.6e gebracht</li>
-</ul>
-<p>Changelog Version 2.7.1:</p>
-<ul>
-  <li>Fixes aus 1.5.6d</li>
-</ul>
-  <p>Changelog Version 2.7.0:</p>
-   <ul>
-     <li>Anpassungen für Zen Cart 1.5.6</li>
-     
-   </ul>
-  <p>Changelog Version 2.6.3:</p>
-   <ul>
-     <li>Anpassungen für Zen Cart 1.5.5f</li>
-     
-   </ul><p>Changelog Version 2.6.2:</p>
-   <ul>
-     <li>VIES Abfrage geändert, so dass auch spanische UIDs korrekt geprüft werden</li>
-     
-   </ul>
-  <p>Changelog Version 2.6.1:</p>
-   <ul>
-     <li>Anpassung für Zen Cart 1.5.5e deutsch</li>
-     
-   </ul>
-   <p>Changelog Version 2.6.0:</p>
-   <ul>
-     <li>Anpassung für Zen Cart 1.5.5 deutsch</li>
-     <li>Installer  auf Autoinstaller mit Modulaktualisierung umgestellt</li>
-   </ul>
-   <p>Changelog Version 2.5:</p>
-<ul>
-  <li>Bugfix in includes/modules/order_total/ot_shipping.php für korrekte Übermittlung von versandkostenfrei bei virtuellen Artikeln</li>
-  
-</ul>
-  <p>Changelog Version 2.4:</p>
-<ul>
-  <li>Anpassung für Zen Cart 1.5.4 deutsch</li>
-  
-</ul>
-  <p>Changelog Version 2.3:</p>
-<ul>
-  <li>Anpassung für Zen Cart 1.5.3 deutsch</li>
-  
-</ul>
-<p>Changelog Version 2.2:</p>
-<ul>
-  <li>Verwendung von CURL statt file_get_contents für die Verbindung zum VIES Server </li>
-  <li>Das bei den meisten Providern deaktivierte PHP Setting allow_url_fopen ist daher nicht mehr notwendig.</li>
-</ul>
-<p>Changelog Version 2.1:</p>
-<ul>
-  <li>Anpassung für Zen Cart 1.5.1 </li>
-  <li>Kroatien integriert</li>
-</ul>
-<p> Portions Copyright (c) 2003 osCommerce<br>
-  Portions Copyright     (c) 2003-2020 Zen Cart</p>
+<p>Anpassung des Moduls <a href="https://github.com/lat9/vat4eu" target="_blank">VAT Processing for European Countries (Vat4EU) </a> von lat9 für die deutsche Zen Cart Version 1.5.6<br>
+  (c) 2022 <a href="https://www.webchills.at" target="_blank">webchills</a></p>
+<p>Changelog Version 3.0.0<br>
+  2022-08-20 webchills
+</p>
+<p>Umstellung der Funktionalität auf die Codebasis von Vat4EU<br>
+  Änderungen gegenüber des Originalmoduls:<br>
+  * deutsche Übersetzung hinzugefügt<br>
+  * Anpassung des Installers für die deutsche Zen Cart Version<br>
+  * Verwendung der ohnehin in der deutschen Zen Cart Version vorhandenen EU Länderliste<br>
+  * Zusatzeinstellung für eigene Shop UID<br>
+  * Konfig &quot;VAT Refund for in-country purchases&quot; entfernt<br>
+  * Infotexte für das UID Hilfe Popup erweitert  <br>
+  * Ausgabe des Hinweistextes im Format <span id="vat-reverse-charge">steuerfreie innergemeinschaftliche Lieferung | Unsere UID: ATU1234567 | Ihre UID: DE1234567</span> <br>
+  * Integration einer Konvertierungsmöglichkeit für die bereits vom früheren Modul hinterlegten UIDs<br>
+  * Anleitung aktualisiert</p>
 <p>This contribution is subject to version 3.0 of the GPL license available through the world-wide-web at the following url:<br>
   <a href="http://www.zen-cart-pro.at/license/3_0.txt">http://www.zen-cart-pro.at/license/3_0.txt</a></p>
 </div>
@@ -115,21 +104,13 @@
 <div class="textcontent">
 <div class="regularlist">
 
-<h2>Installation</h2>
+<h2>Neuinstallation</h2>
 <h3>Voraussetzungen</h3>
   <br>
-  Dieses Modul ist<strong> nur für die deutsche Zen Cart 1.5.6 Version geeignet</strong></p>
-und ändert zahlreiche wichtige Corefiles.<br>
-<strong>Es ist kein Modul, das Sie in 2 Minuten einfach hochladen können! <br>
-Erst in einem Testshop einspielen und nicht direkt in Ihrem Liveshop!</strong><br>
+ <p>Dieses Modul ist<strong> nur für die deutsche Zen Cart 1.5.6 Version geeignet</strong> und ändert einige Corefiles.<br>
+<strong> Erst in einem Testshop einspielen und nicht direkt in Ihrem Liveshop!</strong></p>
 <br>
- <b>WICHTIG:</b><br/>
-Bevor Sie Ihren 1.5.6 Shop weiter modifizieren, stellen Sie erst sicher, dass Sie die neueste 1.5.6 Version verwenden.<br/>
-Das ist derzeit 1.5.6e<br/>
-Sollten Sie noch 1.5.6d oder 1.5.6c verwenden, aktualisieren Sie Ihren Shop zunächst auf 1.5.6e, bevor Sie dieses Modul installieren.<br/>
-Die mitgelieferten GEAENDERTEN DATEIEN dieses Moduls sind auf dem Stand von 1.5.6e 
-<br/><br/>
-Für den Einbau dieses Moduls sollten Sie über folgende Werkzeuge verfügen:<br>
+<p>Für den Einbau dieses Moduls sollten Sie über folgende Werkzeuge verfügen:<br>
   <br>
   <strong>1) Ein guter Texteditor </strong><br>
   Damit ist nicht das in Windows enthaltene Notepad oder Microsoft Word gemeint.<br>
@@ -153,8 +134,8 @@ BACKUP gemacht? Ok, dann weiterlesen...
 </div>
 <p>Die Installation erfolgt in folgenden Schritten. Halten Sie diesen Ablauf ein!</p>
 <p>1.<br>
-Im Ordner GEAENDERTE DATEIEN alle Ordner namens DEINTEMPLATE auf das   im Shop verwendete Template umbennen (z.B.  responsive_classic).   Den Ordner DEINADMIN auf den Namen Ihres admin Verzeichnisses   umbenennen.<br>
-Wenn Sie Zen Cart 1.5.6 gerade frisch installiert haben und noch   keinerlei Änderungen an den Dateien vorgenommen haben, können Sie nun  alle Dateien/Ordner aus dem Ordner GEAENDERTE DATEIEN in der   vorgegebenen Struktur in die Zen Cart Installation hochladen. Dabei   werden dann etliche Dateien überschrieben.<br>
+Im Ordner GEAENDERTE DATEIEN den Ordner includes/templates/DEINTEMPLATE auf das   im Shop verwendete Template umbennen (z.B.  responsive_classic).   <br>
+Wenn Sie Zen Cart 1.5.6 gerade frisch installiert haben und noch   keinerlei Änderungen an den Dateien vorgenommen haben, können Sie nun  alle Dateien/Ordner aus dem Ordner GEAENDERTE DATEIEN in der   vorgegebenen Struktur in die Zen Cart Installation hochladen. Dabei   werden dann 4 Dateien überschrieben.<br>
 Wenn Sie Zen Cart 1.5.6 schon länger im Einsatz haben und schon einmal   Änderungen an Dateien vorgenommen oder andere Module eingebaut haben,   dann laden Sie die Dateien keinesfalls einfach hoch. <br>
 Vergleichen Sie alle Dateien im Ordner GEAENDERTE DATEIEN mit den   entsprechenden Dateien in Ihrem Shop und nehmen Sie die Änderungen   manuell per WinMerge oder BeyondCompare vor.<br>
 Dann spielen Sie die geänderten Dateien in der gezeigten Struktur ein.</p>
@@ -166,30 +147,137 @@ In die Zen Cart Administration einloggen</p>
 Überprüfen Sie nun erst nochmal ob Sie wirklich in Schritt 2 den Ordner in NEUE DATEIEN entsprechend umbenannt haben.<br>
 Ja?<br>
 Dann nun alle Dateien/Ordner aus dem Ordner NEUE DATEIEN in der vorgegebenen Struktur in die Zen Cart Installation hochladen. <br>
-Dabei werden keine bestehende Datei überschrieben.</p>
+Dabei werden keine bestehende Dateien überschrieben.</p>
 <p>5.<br>
 In der Zen Cart Administration auf irgendeinen Menüpunkt clicken. Sie sollten oben grüne Erfolgsmeldungen sehen und unter Konfiguration ist nun der neue Menüpunkt &quot;UID Einstellungen&quot; vorhanden. <br>
 <br>
 6.<br>
-  In der Zen Cart Administration unter Konfiguration &gt; UID Einstellungen die gewünschten Einstellungen vornehmen.</p>
-<p>7.<br>
-  Das Modul wird nur dann korrekt arbeiten, wenn Sie Ihre Steuerzonen korrekt konfiguriert haben. Überprüfen Sie daher Ihre Einstellungen.<br>
-  Folgendes MUSS so eingestellt sein<br>
-  Konfiguration-&gt;Mein Shop-&gt;Land = Hier muss Ihr Land eingestellt sein, z.B. Deutschland<br>
-  Konfiguration-&gt;Mein Shop-&gt;Basis der Steuern für Artikel = Shipping<br>
-  Konfiguration-&gt;Mein Shop-&gt;Basis der Steuern für Versand = Shipping<br>
-  Hier ein Beispiel für eine typische Konfiguration:  <br>
-  Länder und Steuern -&gt; Steuerzonen = EU -&gt; enthält alle EU Staaten<br>
-  Länder und Steuern -&gt; Steuerzonen = Export -&gt;enthält alle anderen Nicht-EU Länder<br>
-  Länder und Steuern -&gt; Steuerklassen = 3 verschiedene Steuerklassen: Export, Normalsteuersatz, reduzierter Steuersatz<br>
-  Länder und Steuern -&gt; Steuersätze = 19% Normalsteuersatz, 7% reduzierter Steuersatz,  0% Export<br>
+  In der Zen Cart Administration unter Konfiguration &gt; UID Einstellungen die gewünschten Einstellungen vornehmen. Alle Einstellungsmöglichkeiten sind dort erklärt.<br>
   <br>
+  Tragen Sie dort auf jeden Fall Ihre eigene UID ein.<br>
+  Entscheiden Sie, ob Sie das Modul im Modus Kunde oder Admin verwenden wollen.<br>
+  <strong>Kunde</strong> bedeutet, dass die UID bei der Kundenregistrierung direkt bei VIES geprüft wird und wenn die Prüfung ok ist, dann erhält der Kunde die Sonderkondition sofort. Ist die Prüfung nicht erfolgreich, wird die UID in der Administration entsprechend gekennzeichnet und der Admin muss sie nochmals prüfen.<br>
+  <strong>Admin</strong> bedeutet, dass jede vom Kunden selbst eingegebene UID immer erst den Status unverifiziert hat und solange kein Admin die UID nochmals verifiziert hat, keine Sonderkondition stattfindet. In diesem Fall erscheint im Shop für den Kunden durchgehend ein entsprechender Hinweis.</p>
+<p>7.<br>
+  Unter Module &gt; Zusammenfassung sind nun 2 neue Module vorhanden, die Sie beide aktivieren müssen:<br>
+  Mehrwersteuererstattung (ot_vat_refund)<br>
+  Hinweis auf innergemeinschaftliche Lieferung (ot_vat_reverse_charges)<br>
+  Installieren Sie nun beide und beachten sie die Hinweise zur Sortierreihenfolge.
+  <br>
+  <br>
+  Wenn Sie alles eingestellt haben, prüfen Sie noch unter Konfiguration &gt; Kundendetails, dass Sie Firma aktiviert haben, das ist eine Voraussetzung für dieses Modul.<br>
+  <br>
+  Un prüfen Sie Ihre Liste der EU-Staaten unter Konfiguration &gt; Mein Shop &gt; EU Länder<br>
+  Das Modul greift auf diese Liste zu, es muss kommagetrennt die zweistelligen ISO Codes aller derzeitigen EU-Staaten enthalten:<br>
+  BE,BG,DK,DE,EE,FI,FR,GR,IE,IT,LV,LT,LU,MT,NL,AT,PL,PT,RO,SE,SK,SI,ES,CZ,HU,CY,HR  <br>
+<br>
+  Und dann können Sie UID - Funktionalität im Frontend aktivieren auf true stellen.<br>
+  <br>
+  Gehen Sie nun mit einem Testkunden mit UID zur Kasse und prüfen die Funktionalität.
+  <br>
+  <br>
+  8.<br>
+  Unter Kunden &gt; Kunden sehen Sie, welche Kunden eine UID angegeben haben und welchen Validierungsstatus diese haben.<br>
+Durch Anklicken der Links &quot;Asc&quot; oder &quot;Desc&quot; für die Spalte UID wird die Anzeige nach dem Status der zugehörigen UID sortiert.</p>
+<p>Bei der Sortierung in der Reihenfolge Asc werden die Kundendatensätze in der folgenden Statusreihenfolge angezeigt:</p>
+<p>Validiert über Admin Überschreibung (VIES umgangen)<br>
+  <img src="images/admin-override.jpg" width="21" height="21"  alt=""/></p>
+<p>Validiert über VIES<br>
+  <img src="images/validated.jpg" width="21" height="21"  alt=""/></p>
+<p>Nicht validiert<br>
+  <img src="images/not-validated.jpg" width="21" height="21"  alt=""/></p>
+<p>Von VIES als ungültig eingestuft<br>
+  <img src="images/deemed.jpg" width="21" height="21"  alt=""/></p>
+<p>9.<br>
+  Bei der Registrierung wird neben dem Eingabefeld für die UID eine Hilfe Link angezeigt. Anclicken öffnet ein Popup, das erklärt, welches Format die UIDs je nach Land haben müssen. Diese Informationen sind aktuell (Stand Juni 2022).<br>
+  Der Inhalt dieser Hilfeseite kommt aus einer Define Page und kann über Tools &gt; Seiteneditor &gt; define_popup_vat4eu_formats bearbeitet werden.
 </p>
 </div>
 </div>
 </div>
 
 <!--End sc2-->
+
+<!--Begin sc3-->
+<div class="tabcontent" id="sc3" style="display: block;">
+<div class="textcontent">
+<div class="regularlist">
+
+<h2>UPDATE VON ÄLTEREN VERSIONEN DIESES MODULS</h2>
+<p>
+ <br>
+ <strong>WICHTIG:<br>
+ Version 3.0.0 dieses Moduls funktioniert völlig anders als frühere Versionen dieses Moduls.<br>
+ Um auf Version 3.0.0 zu aktualisieren, entfernen Sie vorher Version 2.7.3 und erst danach gehen Sie so vor wie unter Neuinstallation beschrieben.</strong><br>
+ <br>
+ Um das alte Modul zu entfernen gehen Sie folgendermaßen vor:<br>
+ <br>
+ 1)<br>
+Schalten Sie Ihren Shop in den Wartungsmodus<br>
+ <br>
+ 2)<br>
+Entfernen Sie alle neuen Dateien aus Ihrer Shopinstallation, die das alte Modul früher mal angelegt hatte, das sind:<br>
+ <br>
+DEINADMIN/includes/auto_loaders/config.uid.php<br>
+DEINADMIN/includes/functions/extra_functions/functions_vatmod.php <br>
+DEINADMIN/includes/init_includes/init_uid.php<br>
+DEINADMIN/includes/installers/uid (gesamter Ordner)<br>
+DEINADMIN/includes/languages/german/extra_definitions/products_uid.php <br>
+DEINADMIN/includes/languages/german/extra_definitions/uid.php<br>
+DEINADMIN/includes/languages/english/extra_definitions/products_uid.php <br>
+DEINADMIN/includes/languages/english/extra_definitions/uid.php<br>
+includes/functions/extra_functions/functions_vatmod.php<br>
+includes/languages/german/extra_definitions/uid.php<br>
+includes/languages/german/extra_definitions/vatmod.php<br>
+includes/languages/english/extra_definitions/uid.php<br>
+includes/languages/english/extra_definitions/vatmod.php</p>
+<p>3)<br>
+Das alte Modul hat sehr viele Dateien geändert. Diese Änderungen müssen Sie nun wieder rückgängig machen.<br>
+  Vergleichen Sie die folgenden Dateien in Ihrem Shop mit den entsprechenden Orginaldateien aus Zen Cart 1.5.6 und entfernen Sie die Änderungen, die das alte Modul vorgenommen hat. Die meisten Änderungen sind mit bof UID oder bof VatMod gekennziechnet.<br>
+  <br>
+  Folgende Dateien müssen wieder durch die Original 1.5.6 Dateien ersetzt werden, bzw. die alten UID Änderungen aus ihnen entfernt werden:<br>
+  <br>
+  DEINADMIN/customers.php<br>
+  DEINADMIN/invoice.php<br>
+  DEINADMIN/orders.php<br>
+  DEINADMIN/packingslip.php<br>
+  includes/classes/order.php<br>
+  includes/functions/functions_customers.php<br>
+  includes/functions/functions_taxes.php<br>
+  includes/modules/DEINTEMPLATE/checkout_new_address.php<br>
+  includes/modules/DEINTEMPLATE/create_account.php<br>
+  includes/modules/order_total/ot_shipping.php<br>
+  includes/modules/pages/address_book_process/header_php.php<br>
+  includes/templates/DEINTEMPLATE/templates/tpl_modules_address_book_details.php
+  <br>
+  includes/templates/DEINTEMPLATE/templates/tpl_modules_checkout_new_address.php<br>
+  includes/templates/DEINTEMPLATE/templates/tpl_modules_create_account.php  </p>
+<p>4)<br>
+  <br>
+ Folgende Befehle sollten Sie nun noch unter Tools &gt; SQL Patches installieren absenden, um die alten Datenbankkonfigurationseinträge des alten Moduls noch zu entfernen:<br>
+<br>
+DELETE FROM configuration WHERE configuration_key = 'ENTRY_TVA_INTRACOM_CHECK';<br>
+DELETE FROM configuration WHERE configuration_key = 'TVA_SHOP_INTRACOM';<br>
+DELETE FROM configuration WHERE configuration_key = 'UID_MODUL_VERSION';<br>
+DELETE FROM configuration WHERE configuration_key = 'ENTRY_TVA_INTRACOM_MIN_LENGTH';<br>
+DELETE FROM configuration_language WHERE configuration_key = 'ENTRY_TVA_INTRACOM_CHECK';<br>
+DELETE FROM configuration_language WHERE configuration_key = 'TVA_SHOP_INTRACOM';<br>
+DELETE FROM configuration_language WHERE configuration_key = 'ENTRY_TVA_INTRACOM_MIN_LENGTH';<br>
+DELETE FROM configuration_group WHERE configuration_group_title LIKE 'UID';<br>
+DELETE FROM admin_pages WHERE page_key='configProdUID'; <br>
+<br> 
+Nun haben Sie das alte Modul entfernt und installieren nun das neue Modul so wie unter Neuinstallation beschrieben.
+</p>
+<p>Danach haben Sie einen funktionierenden 1.5.6 Shop mit dem neuen UID Modul 3.0.0. <br>
+  Nur unter Kunden > Kunden sind keinerlei bestehende UIDs vorhanden.<br>
+  Ihre bisherigen UIDs können Sie nun leicht in die neue Modulstruktur übernehmen.
+  <br>
+  <br>
+  Eine Anleitung dazu finden Sie in der Datei anleitung.txt im Ordner UID DATENUEBERNAHME AUS ALTEM MODUL. </p>
+</div>
+</div>
+</div>
+<!--End sc3-->
 
 <!--Begin sc4-->
 <div class="tabcontent" id="sc4" style="display: block;">
@@ -199,13 +287,18 @@ In der Zen Cart Administration auf irgendeinen Menüpunkt clicken. Sie sollten o
 <h2>DEINSTALLATION</h2>
 <p>
  Um das Modul vollständig zu entfernen, gehen Sie bitte wie folgt vor:
-</p>
-<p>1)<br>
-  Alle von diesem Modul neu angelegten Dateien vom Server entfernen.</p>
+   <br>
+   <br>
+   1)<br>
+   Deinstallieren Sie unter Module &gt; Zusammenfassung die beiden Module<br>
+   Mehrwersteuererstattung (ot_vat_refund)<br>
+Hinweis auf innergemeinschaftliche Lieferung (ot_vat_reverse_charges)</p>
 <p>2)<br>
-  Alle von diesem Modul geänderte Dateien wieder mit den 1.5.6 Originaldateien bzw. den Dateien Ihres zuvor angelegten Backups ersetzen.</p>
+  Alle von diesem Modul neu angelegten Dateien vom Server entfernen.</p>
 <p>3)<br>
-  Di uninstall.sql im Ordner UNINSTALL mit einem Texteditor öffnen und den Inhalt kopieren.
+  Alle von diesem Modul geänderte Dateien wieder mit den 1.5.6 Originaldateien bzw. den Dateien Ihres zuvor angelegten Backups ersetzen.</p>
+<p>4)<br>
+  Die uninstall.sql im Ordner UNINSTALL mit einem Texteditor öffnen und den Inhalt kopieren.
   <br>
   Zen Cart Administration öffnen und unter Tools &gt; SQL Patches installieren den Inhalt ins Feld hineinkopieren und absenden.</p>
 
@@ -220,12 +313,11 @@ In der Zen Cart Administration auf irgendeinen Menüpunkt clicken. Sie sollten o
 <div class="tabcontent" id="sc5" style="display: block;">
 <div class="textcontent">
 <div class="regularlist">
-<h2>Download &amp; Support</h2>
-<p>Download des Moduls:</p>
-<p><a href="http://www.zen-cart-pro.at/forum/vbdownloads.php" target="_blank">www.zen-cart-pro.at/forum/vbdownloads.php</a></p>
+<h2>Download</h2>
+<p>Dieses Modul steht kostenlos auf Github zum Download bereit:</p>
+<p>Freigegebene getestete Versionen für den Einsatz in Livesystemen ausschließlich auf Github unter Releases herunterladen:<br/>
+  <a href="https://github.com/zencartpro/156-modul-uid/releases" target="_blank"><b>https://github.com/zencartpro/156-modul-uid/releases</b></a></p>
 
-<p>Supportforum zum Modul:</p>
-<p><a href="http://www.zen-cart-pro.at/forum/forums/91-UID" target="_blank">www.zen-cart-pro.at/forum/forums/91-UID</a></p>
 </div>
 </div>
 </div>
@@ -238,8 +330,10 @@ In der Zen Cart Administration auf irgendeinen Menüpunkt clicken. Sie sollten o
 
 <h2>Unterstützen</h2>
 <p>Sie finden dieses Modul nützlich?</p>
-<p>Unterstützen Sie die Weiterentwicklung der deutschen Zen Cart Version.<br/>Wir freuen uns über Spenden zur Finanzierung des Servers und der vBulletin-Lizenz: </p>
-<p><a href="https://donorbox.org/spende-fur-die-weiterentwicklung-der-deutschen-zen-cart-version" target="_blank"><img src="https://www.zen-cart-pro.at/zencartpro-donation-white.png" alt="Spende für die Weiterentwicklung der deutschen Zen Cart Version" title="Spende für die Weiterentwicklung der deutschen Zen Cart Version"></a></p>
+<p>Die deutsche Zen-Cart Version steht kostenlos zur Verfügung. Ebenso dieses Modul.<br/>
+Um unsere laufenden Kosten (Server, Lizenzgebühren, usw.) abzudecken freuen wir uns über jede Unterstützung.<br/>
+Auch für die Zeit, die für die Weiterentwicklung neuer Versionen aufgewendet wird.</p>
+<p><a href="https://spenden.zen-cart-pro.at" target="_blank"><img src="https://www.zen-cart-pro.at/zencartpro-donation-white.png" alt="Spende für die Weiterentwicklung der deutschen Zen Cart Version" title="Spende für die Weiterentwicklung der deutschen Zen Cart Version"></a></p>
 
 <br/><br/>
 <p>Du bist Entwickler und willst helfen, die deutsche Zen Cart Version noch besser zu machen?<br>
@@ -258,6 +352,7 @@ Ein Modul von <a href="https://www.zen-cart-pro.at" target="_blank">www.zen-cart
 <!--end tabcontainer-->
 <script type="text/javascript">document.getElementById('sc1').style.display = 'none';</script>
 <script type="text/javascript">document.getElementById('sc2').style.display = 'none';</script>
+<script type="text/javascript">document.getElementById('sc3').style.display = 'none';</script>
 <script type="text/javascript">document.getElementById('sc4').style.display = 'none';</script>
 <script type="text/javascript">document.getElementById('sc5').style.display = 'none';</script>
 <script type="text/javascript">document.getElementById('sc6').style.display = 'none';</script>
